@@ -2,31 +2,72 @@ import React, { useState } from "react";
 
 function Attendance() {
 
+  // STUDENTS
   const [students, setStudents] = useState([
+    // {
+    //   name:"Mayank Verma",
+    //   status:"",
+    //   date:"",
+    //   time:""
+    // }
+  ]);
 
-    {
-      name:"Mayank Verma",
-      status:""
-    },
+  // FORM DATA
+  const [studentName, setStudentName] =
+    useState("");
 
-    {
-      name:"Rahul Kumar",
-      status:""
-    },
+  const [selectedDate, setSelectedDate] =
+    useState("");
 
-    {
-      name:"Aman Singh",
-      status:""
+  // ADD STUDENT
+  const addStudent = (e) => {
+
+    e.preventDefault();
+
+    if(studentName === ""){
+
+      alert("Enter student name");
+
+      return;
     }
 
-  ]);
+    const newStudent = {
+
+      name:studentName,
+
+      status:"",
+
+      date:selectedDate,
+
+      time:""
+    };
+
+    setStudents([
+      ...students,
+      newStudent
+    ]);
+
+    setStudentName("");
+  };
+
+  // CURRENT TIME
+  const getCurrentTime = () => {
+
+    const now = new Date();
+
+    return now.toLocaleTimeString();
+  };
 
   // MARK PRESENT
   const markPresent = (index) => {
 
     const updatedStudents = [...students];
 
-    updatedStudents[index].status = "Present";
+    updatedStudents[index].status =
+      "Present";
+
+    updatedStudents[index].time =
+      getCurrentTime();
 
     setStudents(updatedStudents);
   };
@@ -36,7 +77,11 @@ function Attendance() {
 
     const updatedStudents = [...students];
 
-    updatedStudents[index].status = "Absent";
+    updatedStudents[index].status =
+      "Absent";
+
+    updatedStudents[index].time =
+      getCurrentTime();
 
     setStudents(updatedStudents);
   };
@@ -49,6 +94,41 @@ function Attendance() {
         Student Attendance
       </h1>
 
+      {/* FORM */}
+
+      <div className="attendance-form">
+
+        <form onSubmit={addStudent}>
+
+          <input
+            type="text"
+            placeholder="Enter Student Name"
+            value={studentName}
+            onChange={(e)=>
+              setStudentName(e.target.value)
+            }
+          />
+
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e)=>
+              setSelectedDate(e.target.value)
+            }
+          />
+
+          <button type="submit">
+
+            Add Student
+
+          </button>
+
+        </form>
+
+      </div>
+
+      {/* TABLE */}
+
       <table className="student-table">
 
         <thead>
@@ -60,6 +140,10 @@ function Attendance() {
             <th>Action</th>
 
             <th>Status</th>
+
+            <th>Date</th>
+
+            <th>Time</th>
 
           </tr>
 
@@ -79,7 +163,7 @@ function Attendance() {
 
                 </td>
 
-                {/* BUTTONS */}
+                {/* ACTION */}
                 <td>
 
                   <div className="attendance-actions">
@@ -110,7 +194,7 @@ function Attendance() {
 
                 </td>
 
-                {/* STATUS COLUMN */}
+                {/* STATUS */}
                 <td>
 
                   {
@@ -133,6 +217,46 @@ function Attendance() {
                       Absent
 
                     </span>
+                  }
+
+                </td>
+
+                {/* DATE */}
+                <td>
+
+                  {
+                    student.date
+                    ?
+
+                    <span className="date-box">
+
+                      📅 {student.date}
+
+                    </span>
+
+                    :
+
+                    "-"
+                  }
+
+                </td>
+
+                {/* TIME */}
+                <td>
+
+                  {
+                    student.time
+                    ?
+
+                    <span className="time-box">
+
+                      ⏰ {student.time}
+
+                    </span>
+
+                    :
+
+                    "-"
                   }
 
                 </td>

@@ -5,12 +5,12 @@ function Teachers() {
   const teachers = [
 
     {
-      name:"Rahul Sharma",
+      name:"Priya Singh",
       subject:"Computer Science"
     },
 
     {
-      name:"Priya Singh",
+      name:"Rahul Singh",
       subject:"Mathematics"
     },
 
